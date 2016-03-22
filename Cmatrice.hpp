@@ -33,9 +33,31 @@ Cmatrice<T>::Cmatrice(Cmatrice<T> &MATmatrice):Ctableau2D<T>(MATmatrice){}
 template <class T>
 Cmatrice<T>::Cmatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes, T **pContenu) : Ctableau2D<T>(uiNbLignes,uiNbColonnes,pContenu){}
 template <class T>
-Cmatrice<T>:: ~Cmatrice(){}
+Cmatrice<T>::~Cmatrice(){}
 
-//Surchages des opérateurs
+template <class T>
+Cmatrice<T> Cmatrice<T>::MATTranspose(){
+    unsigned int uiNbLignes = this->T2DLireNbLignes();
+    unsigned int uiNbColonnes = this->T2DLireNbColonnes();
+    T** tabResult = new T*[uiNbLignes];
+    
+    for(unsigned int uiColonne = 0; uiColonne < uiNbColonnes; uiColonne++){
+        tabResult[uiColonne] = new T[uiNbLignes];
+        for(unsigned int uiLigne = 0; uiLigne < uiNbLignes; uiLigne++){
+            tabResult[uiColonne][uiLigne] = this->T2DLireContenu()[uiLigne][uiColonne];
+        }
+    }
+    
+    Cmatrice MATresult(uiNbColonnes, uiNbLignes, tabResult);
+    return MATresult;
+}
+
+/**
+ * Surcharge de l'opérateur + : Permet d'ajouter deux objets Cmatrice entre eux
+ * @param MAT1 et MAT2, les deux matrices à ajouter entre elles
+ * @returns un objet Cmatrice représentant le résultat de l'addition
+ * @exception Les deux matrices MAT1 et MAT2 doivent être de la même dimension
+ */
 template <class T>
 Cmatrice<T> operator+(Cmatrice<T> &MAT1, Cmatrice<T> &MAT2){
     //Si les matrices n'ont pas la même taille
@@ -51,7 +73,7 @@ Cmatrice<T> operator+(Cmatrice<T> &MAT1, Cmatrice<T> &MAT2){
     
     for(unsigned int uiLigne = 0; uiLigne < uiNbLignes; uiLigne++){
         tabResult[uiLigne] = new T[uiNbColonnes];
-        for(unsigned int uiColonne =0; uiColonne <= uiNbColonnes; uiColonne++){
+        for(unsigned int uiColonne =0; uiColonne < uiNbColonnes; uiColonne++){
             tabResult[uiLigne][uiColonne] = tabMat1[uiLigne][uiColonne] + tabMat2[uiLigne][uiColonne];
         }
     }
