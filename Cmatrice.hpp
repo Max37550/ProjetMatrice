@@ -17,8 +17,8 @@ class Cmatrice : public Ctableau2D<T> {
     public :
     Cmatrice<T>();
     Cmatrice<T>(Cmatrice<T> &MATmatrice);
-    Cmatrice<T>(unsigned int uiNbLignes, unsigned int uiNbColonnes, T **pContenu) : Ctableau2D<T>(uiNbLignes,uiNbColonnes,pContenu){}
-    ~Cmatrice<T>(){}
+    Cmatrice<T>(unsigned int uiNbLignes, unsigned int uiNbColonnes, T **pContenu);
+    ~Cmatrice<T>();
     //Methodes
     public :
     Cmatrice<T> MATTranspose();
@@ -28,6 +28,8 @@ class Cmatrice : public Ctableau2D<T> {
 
 template <class T> Cmatrice<T>::Cmatrice() : Ctableau2D<T>(){}
 template <class T> Cmatrice<T>::Cmatrice(Cmatrice<T> &MATmatrice):Ctableau2D<T>(MATmatrice){}
+template <class T> Cmatrice<T>::Cmatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes, T **pContenu) : Ctableau2D<T>(uiNbLignes,uiNbColonnes,pContenu){}
+template <class T> Cmatrice<T>:: ~Cmatrice(){}
 
 template <class T> Cmatrice<T> operator+(Cmatrice<T> &MAT1, Cmatrice<T> &MAT2){
     //Si les matrices n'ont pas la même taille
