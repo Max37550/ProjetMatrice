@@ -16,9 +16,11 @@ int main(int argc, const char * argv[]) {
             tab[i][j] = j;
         }
     }
+
     Cmatrice<int> m1(3,4,tab);
     Cmatrice<int> m2(3,4,tab);
-    (m1+m2).T2DAffichage();
+    m1.T2DAffichage();
+    m1.MATTranspose().T2DAffichage();
     //m1->T2DAffichage();
     return 0;
 }

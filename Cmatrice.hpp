@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "Ctableau2D.hpp"
+
 template <class T>
 class Cmatrice : public Ctableau2D<T> {
     //Constructeurs et destructeur
@@ -22,19 +23,46 @@ class Cmatrice : public Ctableau2D<T> {
     //Methodes
     public :
     Cmatrice<T> MATTranspose();
-    //surcharges
-    
 };
 
+/**
+ * Constructeur par défaut de la classe Cmatrice : Il appelle le constructeur par défaut de Ctableau2D
+ * @param void
+ * @exception void
+ */
 template <class T>
 Cmatrice<T>::Cmatrice() : Ctableau2D<T>(){}
+
+/**
+ * Constructeur de recopie  de la classe Cmatrice : Il appelle le constructeur de recopie de Ctableau2D
+ * @param MATmatrice, un objet de type Cmatrice
+ * @exception void
+ */
 template <class T>
 Cmatrice<T>::Cmatrice(Cmatrice<T> &MATmatrice):Ctableau2D<T>(MATmatrice){}
+
+/**
+ * Constructeur à 3 arguments de la classe Cmatrice : Il appelle le constructeur à 3 arguments de Ctableau2D
+ * @param uiNbColonnes : le nombre de colonnes de la matrice, uiNbLignes : le nombre de lignes de la matrice, pContenu : un tableau à deux dimensions représentant le contenu de la matrice
+ * @exception void
+ */
 template <class T>
 Cmatrice<T>::Cmatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes, T **pContenu) : Ctableau2D<T>(uiNbLignes,uiNbColonnes,pContenu){}
 template <class T>
+
+/**
+ * Destructeur par défaut de la classe Cmatrice
+ * @param void
+ * @exception void
+ */
 Cmatrice<T>::~Cmatrice(){}
 
+/**
+ * Méthode permettant de transposer une matrice
+ * @param void
+ * @returns Un objet de type Cmatrice représentant la matrice transposée
+ * @exception void
+ */
 template <class T>
 Cmatrice<T> Cmatrice<T>::MATTranspose(){
     unsigned int uiNbLignes = this->T2DLireNbLignes();
@@ -49,6 +77,11 @@ Cmatrice<T> Cmatrice<T>::MATTranspose(){
     }
     
     Cmatrice MATresult(uiNbColonnes, uiNbLignes, tabResult);
+    //Libération du tableau temporaire
+    for(unsigned int uiColonne = 0; uiColonne < uiNbColonnes; uiColonne++){
+        free(tabResult[uiColonne]);
+    }
+    free(tabResult);
     return MATresult;
 }
 
