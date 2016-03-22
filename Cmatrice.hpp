@@ -26,12 +26,18 @@ class Cmatrice : public Ctableau2D<T> {
     
 };
 
-template <class T> Cmatrice<T>::Cmatrice() : Ctableau2D<T>(){}
-template <class T> Cmatrice<T>::Cmatrice(Cmatrice<T> &MATmatrice):Ctableau2D<T>(MATmatrice){}
-template <class T> Cmatrice<T>::Cmatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes, T **pContenu) : Ctableau2D<T>(uiNbLignes,uiNbColonnes,pContenu){}
-template <class T> Cmatrice<T>:: ~Cmatrice(){}
+template <class T>
+Cmatrice<T>::Cmatrice() : Ctableau2D<T>(){}
+template <class T>
+Cmatrice<T>::Cmatrice(Cmatrice<T> &MATmatrice):Ctableau2D<T>(MATmatrice){}
+template <class T>
+Cmatrice<T>::Cmatrice(unsigned int uiNbLignes, unsigned int uiNbColonnes, T **pContenu) : Ctableau2D<T>(uiNbLignes,uiNbColonnes,pContenu){}
+template <class T>
+Cmatrice<T>:: ~Cmatrice(){}
 
-template <class T> Cmatrice<T> operator+(Cmatrice<T> &MAT1, Cmatrice<T> &MAT2){
+//Surchages des opérateurs
+template <class T>
+Cmatrice<T> operator+(Cmatrice<T> &MAT1, Cmatrice<T> &MAT2){
     //Si les matrices n'ont pas la même taille
     if(MAT1.T2DLireNbLignes() != MAT2.T2DLireNbLignes() || MAT1.T2DLireNbColonnes() != MAT2.T2DLireNbColonnes()){
         //Lever une exception
