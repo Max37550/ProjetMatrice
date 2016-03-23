@@ -26,7 +26,16 @@ class Ctableau2D {
         pT2DContenu = NULL;
     }
     Ctableau2D<T>(Ctableau2D<T> &T2DTab){
+        uiT2DNbLignes = T2DTab.T2DLireNbLignes();
+        uiT2DNbColonnes = T2DTab.T2DLireNbColonnes();
         
+        pT2DContenu = new T*[uiT2DNbLignes];
+        for(unsigned int uiLigne = 0; uiLigne < uiT2DNbLignes; uiLigne++){
+            pT2DContenu[uiLigne] = new T[uiT2DNbColonnes];
+            for(unsigned int uiColonne =0; uiColonne <= uiT2DNbColonnes; uiColonne++){
+                pT2DContenu[uiLigne][uiColonne] = T2DTab.T2DLireContenu()[uiLigne][uiColonne];
+            }
+        }
     }
     Ctableau2D<T>(unsigned int nbLignes, unsigned int nbColonnes,T **pContenu){
         uiT2DNbLignes = nbLignes;
