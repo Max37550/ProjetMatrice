@@ -22,7 +22,7 @@ Cmatrice<T>::Cmatrice() : Ctableau2D<T>(){}
  * @exception void
  */
 template <class T>
-Cmatrice<T>::Cmatrice(Cmatrice<T> &MATmatrice):Ctableau2D<T>(MATmatrice){}
+Cmatrice<T>::Cmatrice(Cmatrice<T> &&MATmatrice):Ctableau2D<T>(MATmatrice){}
 
 /**
  * Constructeur à 3 arguments de la classe Cmatrice : Il appelle le constructeur à 3 arguments de Ctableau2D
@@ -146,7 +146,7 @@ Cmatrice<T> Cmatrice<T>::operator-(Cmatrice<T> &MAT1){
  */
 template <class T>
 Cmatrice<T> Cmatrice<T>::operator*(double dNombre){
-    unsigned int uiNbLignes = T2DLireNbLignes();
+    unsigned int uiNbLignes = this->T2DLireNbLignes();
     unsigned int uiNbColonnes = this->T2DLireNbColonnes();
     T** tabResult = new T*[uiNbColonnes];
     T** tabMat1 = this->T2DLireContenu();
@@ -168,8 +168,7 @@ Cmatrice<T> Cmatrice<T>::operator*(double dNombre){
 
 template <class T>
 Cmatrice<T> Cmatrice<T>:: operator/(double dNombre){
-    //TODO
-    return *this;
+    
 }
 
 template <class T>

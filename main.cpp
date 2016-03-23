@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include "Cmatrice.hpp"
+#include "Cexception.hpp"
 int main(int argc, const char * argv[]) {
     int **tab = new int*[3];
     for(int i = 0;i<3;i++){
@@ -19,7 +20,12 @@ int main(int argc, const char * argv[]) {
 
     Cmatrice<int> m1(3,4,tab);
     Cmatrice<int> m2(3,4,tab);
-    m1.T2DAffichage();
+    Cmatrice<int> m3(m1+m2);
+    m3.T2DAffichage();
+    std::cout << std::endl;
+    (m1*10.0).T2DAffichage();
+    std::cout << std::endl;
+    (20.0*m1).T2DAffichage();
     m1.MATTranspose().T2DAffichage();
     //m1->T2DAffichage();
     return 0;

@@ -6,24 +6,23 @@
 //  Copyright © 2016 Arthur Crocquevieille. All rights reserved.
 //
 
+
 #include "Ctableau2D.hpp"
 
-/**
- * Constructeur par défaut de la classe Ctableau2D : Met le nombre de lignes et colonnes à 0 et le tableau à NULL
+/** Constructeur par default d'un Ctableau2D
  * @param void
- * @exception aucune
+ * @exception none
  */
-template <class T>
+template<class T>
 Ctableau2D<T>::Ctableau2D(){
-    uiT2DNbColonnes = 0;
     uiT2DNbLignes = 0;
+    uiT2DNbColonnes = 0;
     pT2DContenu = NULL;
 }
 
-/**
- * Constructeur de recopie de la classe Ctableau2D : Recopie l'objet de type Ctableau2D passé en paramètre dans un nouvel objet
- * @param T2DTab : l'objet Ctableau2D à recopier
- * @exception aucune
+/** Constructeur de recopie d'un Ctableau2D
+ * @param Ctableau2D<T>& la référence d'un Ctableau2D
+ * @exception none
  */
 template <class T>
 Ctableau2D<T>::Ctableau2D(Ctableau2D<T> &T2DTab){
@@ -38,76 +37,29 @@ Ctableau2D<T>::Ctableau2D(Ctableau2D<T> &T2DTab){
         }
     }
 }
-
-/**
- * Constructeur à 3 arguments de la classe Ctableau2D
- * @param nbLignes : le nombre de ligne de la matrice, nbColonnes : le nombre de colonnes, pContenu : le tableau
- * @exception Le tableau doit avoir nbLignes lignes et nbColonnes colonnes
+/** Constructeur d'un Ctableau2D
+ * @param unsigned int le nombre de lignes, unsigned int le nombre de colonnes, le contenu
+ * @exception none
  */
-template <class T>
+template<class T>
 Ctableau2D<T>::Ctableau2D(unsigned int nbLignes, unsigned int nbColonnes,T **pContenu){
     uiT2DNbLignes = nbLignes;
     uiT2DNbColonnes = nbColonnes;
     
-    pT2DContenu = new T*[nbLignes];
+    pT2DContenu = (T**)malloc(nbLignes*sizeof(T*));
     for(unsigned int uiLigne = 0; uiLigne < nbLignes; uiLigne++){
-        pT2DContenu[uiLigne] = new T[nbColonnes];
+        pT2DContenu[uiLigne] = (T*)malloc(nbColonnes*sizeof(T));
         for(unsigned int uiColonne =0; uiColonne <= nbColonnes; uiColonne++){
             pT2DContenu[uiLigne][uiColonne] = pContenu[uiLigne][uiColonne];
         }
     }
 }
-
-/**
- * Destructeur par défaut de la classe Ctableau2D
- * @param void
- * @exception aucune
- */
-template <class T>
-Ctableau2D<T>::~Ctableau2D(){
-    
-}
-
-/**
- * Méthode qui retourne le nombre de lignes d'un Ctableau2D
- * @param void
- * @returns le nombre de lignes de type unsigned int
- * @exception aucune
- */
-template <class T>
-unsigned int Ctableau2D<T>::T2DLireNbLignes(){
-    return uiT2DNbLignes;
-}
-
-/**
- * Méthode qui retourne le nombre de colonnes d'un Ctableau2D
- * @param void
- * @returns le nombre de colonnes de type unsigned int
- * @exception aucune
- */
-template <class T>
-unsigned int Ctableau2D<T>::T2DLireNbColonnes(){
-    return uiT2DNbColonnes;
-}
-
-/**
- * Méthode qui retourne le contenu du Ctableau2D
- * @param void
- * @returns un tableau à 2 dimensions de type <T>
- * @exception aucune
- */
-template <class T>
-T** Ctableau2D<T>::T2DLireContenu(){
-    return pT2DContenu;
-}
-
-/**
- * Méthode qui affiche un Ctableau2D dans la console
+/** Méthode d'affichage d'un Ctableau2D
  * @param void
  * @returns void
- * @exception aucune
+ * @exception none
  */
-template <class T>
+template<class T>
 void Ctableau2D<T>::T2DAffichage(){
     for(int i = 0;i<uiT2DNbLignes;i++){
         for(int j = 0;j<uiT2DNbColonnes;j++){
@@ -116,14 +68,12 @@ void Ctableau2D<T>::T2DAffichage(){
         std::cout <<std::endl;
     }
 }
-
-/**
- * Surcharge de l'opérateur = : Permet d'affectionner un Ctableau2D à un autre
- * @param T2DTab, un objet de type Ctableau2D
- * @returns un objet de type Ctableau2D
- * @exception aucune
+/** Surchage de l'opérateur =
+ * @param Ctableau2D<T> & référence d'un Ctableau2D
+ * @returns Ctableau2D<T>
+ * @exception none
  */
-template <class T>
+template<class T>
 Ctableau2D<T> Ctableau2D<T>::operator=(Ctableau2D<T> &T2DTab){
     uiT2DNbLignes = T2DTab.T2DLireNbLignes();
     uiT2DNbColonnes = T2DTab.T2DLireNbColonnes();
@@ -137,4 +87,15 @@ Ctableau2D<T> Ctableau2D<T>::operator=(Ctableau2D<T> &T2DTab){
     }
     return *this;
 }
-
+/** Destructeur d'un Ctableau2D
+ * @param void
+ * @exception none
+ */
+template<class T>
+Ctableau2D<T>::~Ctableau2D(){
+    if(pT2DContenu!=NULL){
+        for(unsigned int uiBoucle = 0; uiBoucle < uiT2DNbLignes;uiBoucle++)
+            free(pT2DContenu[uiBoucle]);
+        free(pT2DContenu);
+    }
+}
