@@ -7,7 +7,7 @@
 //
 
 #include "Cmatrice.hpp"
-
+#include "Cexception.hpp"
 /**
  * Constructeur par défaut de la classe Cmatrice : Il appelle le constructeur par défaut de Ctableau2D
  * @param void
@@ -168,7 +168,12 @@ Cmatrice<T> Cmatrice<T>::operator*(double dNombre){
 
 template <class T>
 Cmatrice<T> Cmatrice<T>:: operator/(double dNombre){
-    
+    if(dNombre == 0)
+    {
+        Cexception e(1,"Division par 0 impossible");
+        throw e;
+    }
+    return (*this)*(1/dNombre);
 }
 
 template <class T>
