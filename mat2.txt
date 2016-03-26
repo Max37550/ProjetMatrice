@@ -1,0 +1,9 @@
+TypeMatrice=double
+NbLignes=4
+NbColonnes=3
+Matrice=[
+1.02 2.45 3.67
+4.12 5.42 6.90
+1.02 2.45 3.67
+4.98 6.21 4.98
+]

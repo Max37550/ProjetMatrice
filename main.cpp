@@ -9,24 +9,19 @@
 #include <iostream>
 #include "Cmatrice.hpp"
 #include "Cexception.hpp"
-int main(int argc, const char * argv[]) {
-    int **tab = new int*[3];
-    for(int i = 0;i<3;i++){
-        tab[i] = new int[4];
-        for(int j = 0;j<4;j++){
-            tab[i][j] = j;
-        }
-    }
+#include "CGestionFicherMatrice.hpp"
 
-    Cmatrice<int> m1(3,4,tab);
-    Cmatrice<int> m2(3,4,tab);
-    Cmatrice<int> m3(m1+m2);
-    m3.T2DAffichage();
+int main(int argc, const char * argv[]) {
+    Cmatrice<double> m1(CGestionFichierMatrice::GFMLireMatriceDansFichier("/Users/arthurcrocquevieille/Documents/projetMatrice/projetMatrice/mat1.txt"));
+    Cmatrice<double> m2(CGestionFichierMatrice::GFMLireMatriceDansFichier("/Users/arthurcrocquevieille/Documents/projetMatrice/projetMatrice/mat2.txt"));
+    m1.T2DAffichage();
     std::cout << std::endl;
-    (m1*10.0).T2DAffichage();
+    m2.T2DAffichage();
     std::cout << std::endl;
-    (20.0*m1).T2DAffichage();
-    m1.MATTranspose().T2DAffichage();
-    //m1->T2DAffichage();
+    (m1 * m2).T2DAffichage();
+    std::cout << std::endl;
+    (m1 * 2).T2DAffichage();
+    std::cout << std::endl;
+    (2 * m1).T2DAffichage();
     return 0;
 }
