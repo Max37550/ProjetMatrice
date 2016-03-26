@@ -26,8 +26,30 @@ Cmatrice<double> CGestionFichierMatrice::GFMLireMatriceDansFichier(char * chemin
     std::ifstream f(chemin, std::ios::in);
     if(f){
         char ctype[1024];
+        char ctemp = 'x';
         unsigned int uiNbLignes,uiNbColonnes;
-        f >> ctype >> uiNbLignes >> uiNbColonnes;
+        //Type matrice
+        while(ctemp !='='){
+            f.get(ctemp);
+        }
+        ctemp = 'x';
+        f >> ctype;
+        //NbLignes
+        while(ctemp !='='){
+            f.get(ctemp);
+        }
+        ctemp = 'x';
+        f>> uiNbLignes;
+        //NbColonnes
+        while(ctemp !='='){
+            f.get(ctemp);
+        }
+        ctemp = 'x';
+        f>> uiNbColonnes;
+        //Matrice
+        while(ctemp !='['){
+            f.get(ctemp);
+        }
         double **dtab = (double**)malloc(uiNbLignes*sizeof(double*));
         for(unsigned int uiBoucle = 0;uiBoucle < uiNbLignes;uiBoucle++){
             dtab[uiBoucle] = (double*)malloc(uiNbColonnes*sizeof(double));
